@@ -34,20 +34,43 @@
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
 
+
+shopping_report = {}  # Словарь для накопления информации о покупках
+account_saldo = 0 # Остаток на счете
+def account_calculation(x,choice):  # Расчет остатка на счете при пополнении и покупках
+    global account_saldo
+    if choice == '1':
+        account_saldo += deposit_amount
+    elif choice == '2':
+        account_saldo -= purchase_amount
+    else:
+        print('Неверный пункт меню')
+    return account_saldo
+
 while True:
     print('1. пополнение счета')
     print('2. покупка')
     print('3. история покупок')
     print('4. выход')
-
-    choice = input('Выберите пункт меню')
+    choice = input('Выберите пункт меню ')
     if choice == '1':
+        deposit_amount=int(input("Введите сумму пополнения счета "))
+        account_calculation(deposit_amount,choice)
         pass
     elif choice == '2':
+        purchase_amount = int(input("Введите сумму покупки "))
+        if purchase_amount <= account_saldo:
+            purchase_name = input("Введите название покупки ")
+            account_calculation(purchase_amount, choice)
+            shopping_report[purchase_name] = purchase_amount
+        else:
+            print("Недостаточно средств на счете")
         pass
     elif choice == '3':
+        print(shopping_report)
         pass
     elif choice == '4':
         break
     else:
         print('Неверный пункт меню')
+
